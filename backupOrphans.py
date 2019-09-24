@@ -14,11 +14,13 @@ for line in sys.stdin:
 
     else: #!indexMode:
         fileName = ""
-        for x in range(len(line)):
+        underscoreCount = 0 
+        for x in range(len(line)-1, -1, -1):
             if line[x] == '_':
-                fileName = line[0:x-len(line)] #cuts off everything after _
-                print(fileName)
-                break
+                underscoreCount+=1
+                if underscoreCount==2:
+                    fileName = line[0:x] #cuts off _ and everything after
+                    break
         
         if fileName in indexDict:
             indexDict[fileName]=False
@@ -40,6 +42,8 @@ iFiles.sort()
 for i in iFiles:
     print("I " + i)
 
+if(len(iFiles)==0 and len(fFiles)==0):
+    print("No mismatches.")
 
 
 
